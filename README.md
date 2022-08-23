@@ -8,24 +8,25 @@ How to install and setup current Debian (Bullseye at the time of writing) base s
 - USB keyboard + HDMI monitor
 - (optional) UART/USB converter
 
-## Prepare SD car
+## Prepare SD card
+(on Debian/Ubuntu PC as `comon_user` with `sudo` to `root` rights)
 
 ### Use prebuilt images
 Visit https://sd-card-images.johang.se/boards/banana_pi_m2_berry.html and follow instructions.
 
 ### Build your own image
 ```bash
-# Install docker and ARM emulation stuff on your Debian/Ubuntu PC
+# Install docker and ARM emulation stuff
 sudo apt install docker.io qemu-system-arm qemu-user-static binfmt-support
 
 # Enable support for seamless running of foreign architecture binaries
 sudo binfmt-support --enable
 
 # Grant current user access to docker
-sudo usermod -G docker -a <current_user>
+sudo usermod -G docker -a <common_user>
 
 # HACK: make 'docker' group membership active in current shell
-newgrp docker && newgrp <primary_user_group>
+newgrp docker && newgrp <common_user_group>
 
 # Prepare builder container and output directory for images
 docker build -t sd-images https://github.com/johang/sd-card-images.git
@@ -44,20 +45,23 @@ zcat boot-banana_pi_m2_berry.bin.gz debian-bullseye-armhf-*.bin.gz > sd.img
 sudo dd if=sd.img of=/dev/mmcblk0
 ```
 
-**Write down root user password, it is part of rootfs image filename.**
-
-**Connect board to DHCP enabled wired network and either keyboard+HDMI or UART.**
-
-**Boot using your new system SD-card.**
-
-**Login as root.**
+## Prepare end execute 1st boot
+- Write down `root` password, see last part of Debian image filename
+- Connect board to DHCP enabled wired network
+- Connect USB keyboard + HDMI monitor or USB/UART conventor
+- Boot using your SD-card.**
+- Login as `root` via keyboard+monitor combo / UART / SSH
 
 ## After 1st boot
+(on Banana PI as `root`)
+
 ```bash
 # Set new password for root
 passwd
 
 # Set current time and date
+# To get current date string, run on your PC: 
+# LC_ALL=C date -u
 date -s "Mon Aug 22 10:05:41 UTC 2022"
 
 # Update & upgrade Debian
@@ -68,8 +72,8 @@ sed -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list
 apt update
 api install wireless-regdb firmware-brcm80211 
 
-# Add symlink to similar board modprobe config (our board is missing in upstream)
-cd /usr/lib/firmware/brcm/ 
+# Add symlink to similar board modprobe config (this board is missing in upstream)
+cd /usr/lib/firmware/brcm/ && \
 ln -s brcmfmac43430-sdio.sinovoip,bpi-m2-ultra.txt brcmfmac43430-sdio.sinovoip,bpi-m2-berry.txt
 
 # Install BT firmware (maybe there is better source, but I'm lazy to search more)
@@ -77,7 +81,7 @@ apt install curl
 curl -L -o /usr/lib/firmware/brcm/BCM43430A1.hcd \
 https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/BCM43430A1.hcd 
 
-# Enable time ntp sync (optional but highly recomended)
+# Enable network time sync (optional but highly recomended)
 apt install dbus systemd-timesyncd
 timedatectl set-ntp 1  
 
@@ -91,3 +95,13 @@ parted
 resize2fs /dev/mmcblk0p2
 ```
 ## Reboot.
+Now all devices **should** working. 
+### Tested devices:
+- wlan0 (tested: connection to home wireless network, OK)
+- BT (tested: device scan using hcitool, OK)
+- eth0 (tested: connection to home wired network, OK)
+- LEDs (tested: /sys/class/leds/* works, OK)
+### Not tested devices:
+- SATA
+- audio
+
