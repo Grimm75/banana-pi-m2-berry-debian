@@ -97,15 +97,15 @@ parted
 resize2fs /dev/mmcblk0p2
 ```
 ## Reboot.
-Now all devices **should** work.
+Now **some** devices **should** work.
 
 ### "Tested" devices:
 - wlan0 (tested by: connection to home wireless network, OK)
 - BT (tested by: device scan using hcitool, OK)
-- eth0 (tested by : connection to home wired network, OK)
+- eth0 (works out-of-the-box, tested by : connection to home wired network, OK)
 - LEDs (tested by: /sys/class/leds/* interface, OK)
 ### Not tested devices:
 - SATA
 - audio
 - HDMI
-
+- 
