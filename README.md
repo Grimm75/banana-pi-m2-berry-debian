@@ -1,12 +1,14 @@
 # Banana PI M2 Berry current Debian install
-How to install and setup current Debian (Bullseye at the time of writing) base system for BPI-M2-Berry
+**How to install and setup current Debian (`Bullseye` at the time of writing) base system for BPI-M2-Berry**
 ## Prerequisites
-- Banna PI M2 Berry board + USB micro 5V/2A power source
-- 8GB (or bigger) SD card
+- Banana PI M2 Berry board
+- USB micro 5V/2A power source
+- 8GB (or bigger) micro SD card
 - PC with Debian/Ubuntu system
+- USB SD card adapter for PC
 - Wired network with DHCP
-- USB keyboard + HDMI monitor
-- (optional) UART/USB converter
+- USB keyboard + HDMI monitor (not tested)
+- UART/USB converter (preferred over ^)
 
 ## Prepare SD card
 (on Debian/Ubuntu PC as `comon_user` with `sudo` to `root` rights)
@@ -48,9 +50,9 @@ sudo dd if=sd.img of=/dev/mmcblk0
 ## Prepare end execute 1st boot
 - Write down `root` password, see last part of Debian image filename
 - Connect board to DHCP enabled wired network
-- Connect USB keyboard + HDMI monitor or USB/UART conventor
-- Boot using your SD-card.**
-- Login as `root` via keyboard+monitor combo / UART / SSH
+- Connect USB keyboard + HDMI monitor or USB/UART conventor or both :)
+- Boot using your SD-card
+- Login as `root` via UART / SSH / keyboard+monitor combo
 
 ## After 1st boot
 (on Banana PI as `root`)
@@ -95,13 +97,15 @@ parted
 resize2fs /dev/mmcblk0p2
 ```
 ## Reboot.
-Now all devices **should** working. 
-### Tested devices:
-- wlan0 (tested: connection to home wireless network, OK)
-- BT (tested: device scan using hcitool, OK)
-- eth0 (tested: connection to home wired network, OK)
-- LEDs (tested: /sys/class/leds/* works, OK)
+Now all devices **should** work.
+
+### "Tested" devices:
+- wlan0 (tested by: connection to home wireless network, OK)
+- BT (tested by: device scan using hcitool, OK)
+- eth0 (tested by : connection to home wired network, OK)
+- LEDs (tested by: /sys/class/leds/* interface, OK)
 ### Not tested devices:
 - SATA
 - audio
+- HDMI
 
