@@ -69,8 +69,8 @@ api install wireless-regdb firmware-brcm80211
 cd /usr/lib/firmware/brcm/ 
 ln -s brcmfmac43430-sdio.sinovoip,bpi-m2-ultra.txt brcmfmac43430-sdio.sinovoip,bpi-m2-berry.txt
 
-# Install BT firmware
-api install curl
+# Install BT firmware (maybe there is better source, but I'm lazy to search more)
+apt install curl
 curl https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/BCM43430A1.hcd -L -o /usr/lib/firmware/brcm/BCM43430A1.hcd
 
 # Enable time ntp sync (optional but highly recomended)
