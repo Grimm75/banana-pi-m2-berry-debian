@@ -11,7 +11,7 @@
 - UART/USB converter (preferred over ^)
 
 ## Prepare SD card
-(on Debian/Ubuntu PC as `comon_user` with `sudo` to `root` rights)
+(on Debian/Ubuntu PC as `common_user` with `sudo` to `root` rights)
 
 ### Use prebuilt images
 Visit https://sd-card-images.johang.se/boards/banana_pi_m2_berry.html and follow instructions.
@@ -48,11 +48,11 @@ sudo dd if=sd.img of=/dev/mmcblk0
 ```
 
 ## Prepare end execute 1st boot
-- Write down `root` password, see last part of Debian image filename
 - Connect board to DHCP enabled wired network
 - Connect USB keyboard + HDMI monitor or USB/UART conventor or both :)
 - Boot using your SD-card
 - Login as `root` via UART / SSH / keyboard+monitor combo
+- `root` password is last part of Debian image filename
 
 ## After 1st boot
 (on Banana PI as `root`)
