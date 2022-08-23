@@ -11,10 +11,9 @@ How to install and setup current Debian (Bullseye at the time of writing) base s
 ## Prepare SD car
 
 ### Use prebuilt images
-Visit https://sd-card-images.johang.se/boards/banana_pi_m2_berry.html and follow the instructions.
+Visit https://sd-card-images.johang.se/boards/banana_pi_m2_berry.html and follow instructions.
 
 ### Build your own image
-
 ```bash
 # Install docker and ARM emulation stuff on your Debian/Ubuntu PC
 sudo apt install docker.io qemu-system-arm qemu-user-static binfmt-support
@@ -36,7 +35,8 @@ mkdir -p ~/sd-images
 docker run --rm -v ~/sd_images:/artifacts sd-images build-debian debian armhf bullseye
 
 # Build U-Boot image
-docker run --rm -v ~/sd_images:/artifacts sd-images build-boot banana_pi_m2_berry allwinner-v40 bananapi_m2_berry_defconfig arm-linux-gnueabihf
+docker run --rm -v ~/sd_images:/artifacts sd-images build-boot \ 
+banana_pi_m2_berry allwinner-v40 bananapi_m2_berry_defconfig arm-linux-gnueabihf
 
 # Create SD-card image and copy it to SD
 cd ~/sd_images
@@ -48,12 +48,15 @@ sudo dd if=sd.img of=/dev/mmcblk0
 
 **Connect board to DHCP enabled wired network and either keyboard+HDMI or UART.**
 
-**Boot using populated SD-card.**
+**Boot using your new system SD-card.**
 
 **Login as root.**
 
 ## After 1st boot
 ```bash
+# Set new password for root
+passwd
+
 # Set current time and date
 date -s "Mon Aug 22 10:05:41 UTC 2022"
 
@@ -71,7 +74,8 @@ ln -s brcmfmac43430-sdio.sinovoip,bpi-m2-ultra.txt brcmfmac43430-sdio.sinovoip,b
 
 # Install BT firmware (maybe there is better source, but I'm lazy to search more)
 apt install curl
-curl https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/BCM43430A1.hcd -L -o /usr/lib/firmware/brcm/BCM43430A1.hcd
+curl -L -o /usr/lib/firmware/brcm/BCM43430A1.hcd \
+https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/BCM43430A1.hcd 
 
 # Enable time ntp sync (optional but highly recomended)
 apt install dbus systemd-timesyncd
@@ -86,6 +90,4 @@ parted
 # Resize root filesystem
 resize2fs /dev/mmcblk0p2
 ```
-
 ## Reboot.
-
