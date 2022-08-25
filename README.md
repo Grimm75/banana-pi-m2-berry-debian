@@ -1,5 +1,6 @@
-# Banana PI M2 Berry current Debian install
-**How to install and setup current Debian (`Bullseye` at the time of writing) base system for BPI-M2-Berry**
+# Banana PI M2 Berry Debian Bullseye install
+**How to install and setup `Debian Bullseye` minimal system for BPI-M2-Berry**
+
 ## Prerequisites
 - Banana PI M2 Berry board
 - USB micro 5V/2A power source
