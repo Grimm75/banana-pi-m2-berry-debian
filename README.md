@@ -50,7 +50,7 @@ sudo dd if=sd.img of=/dev/mmcblk0
 - Connect board to DHCP enabled wired network
 - Connect USB/UART conventor and run `minicom` on the PC ( https://wiki.banana-pi.org/BPI_Uart_Module )
 - Boot using your SD-card
-- Login as `root` via UART / SSH (on DHCP provided IP)
+- Login as `root` via UART console or SSH on DHCP provided IP
 - `root` password is last part of Debian image filename
 
 ## After 1st boot
@@ -98,13 +98,14 @@ resize2fs /dev/mmcblk0p2
 ## Reboot.
 Now **some** devices **should** work.
 
-### "Tested" devices:
+### Tested devices:
 - wlan0 (tested by: connection to home wireless network, OK)
 - BT (tested by: device scan using hcitool, OK)
 - eth0 (works out-of-the-box, tested by : connection to home wired network, OK)
 - LEDs (tested by: /sys/class/leds/* interface, OK)
+
 ### Not tested devices:
 - SATA
 - audio
 - HDMI
-- ...
+- ???
