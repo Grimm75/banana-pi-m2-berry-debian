@@ -72,7 +72,7 @@ apt update && apt dist-upgrade
 # Install wlan0 firmware
 sed -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list
 apt update
-api install wireless-regdb firmware-brcm80211 
+apt install wireless-regdb firmware-brcm80211 
 
 # Add symlink to similar board modprobe config (this board is missing in upstream)
 cd /usr/lib/firmware/brcm/ && \
@@ -83,7 +83,7 @@ apt install curl
 curl -L -o /usr/lib/firmware/brcm/BCM43430A1.hcd \
 https://github.com/RPi-Distro/bluez-firmware/raw/master/broadcom/BCM43430A1.hcd 
 
-# Enable network time sync (optional but highly recomended)
+# Enable network time sync (optional, highly recomended)
 apt install dbus systemd-timesyncd
 timedatectl set-ntp 1  
 
@@ -104,9 +104,9 @@ Now **some** devices **should** work.
 - BT (tested by: device scan using hcitool, OK)
 - eth0 (works out-of-the-box, tested by : connection to home wired network, OK)
 - LEDs (tested by: /sys/class/leds/* interface, OK)
+- USB (tested by: SDR, OK)
 
 ### Not tested devices:
 - SATA
 - audio
 - HDMI
-- ???
