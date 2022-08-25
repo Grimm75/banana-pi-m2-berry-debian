@@ -69,7 +69,7 @@ date -s "Mon Aug 22 10:05:41 UTC 2022"
 # Update & upgrade Debian
 apt update && apt dist-upgrade
 
-# Install wlan0 firmware
+# Install wlan0 firmware and wireless regulatory database
 sed -i 's/^deb(.*)$/deb\1 contrib non-free/g' /etc/apt/sources.list
 apt update
 apt install wireless-regdb firmware-brcm80211 
