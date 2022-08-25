@@ -7,8 +7,7 @@
 - PC with Debian/Ubuntu system
 - USB SD card adapter for PC
 - Wired network with DHCP
-- USB keyboard + HDMI monitor (not tested)
-- UART/USB converter (preferred over ^)
+- UART/USB converter
 
 ## Prepare SD card
 (on Debian/Ubuntu PC as `common_user` with `sudo` to `root` rights)
@@ -49,9 +48,9 @@ sudo dd if=sd.img of=/dev/mmcblk0
 
 ## Prepare end execute 1st boot
 - Connect board to DHCP enabled wired network
-- Connect USB keyboard + HDMI monitor or USB/UART conventor or both :)
+- Connect USB/UART conventor and run `minicom` on the PC ( https://wiki.banana-pi.org/BPI_Uart_Module )
 - Boot using your SD-card
-- Login as `root` via UART / SSH / keyboard+monitor combo
+- Login as `root` via UART / SSH (on DHCP provided IP)
 - `root` password is last part of Debian image filename
 
 ## After 1st boot
@@ -108,4 +107,4 @@ Now **some** devices **should** work.
 - SATA
 - audio
 - HDMI
-- 
+- ...
